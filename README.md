@@ -1,49 +1,78 @@
-# API Development and Documentation Final Project
+# Full Stack Trivia Game
 
-## Trivia App
+Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a webpage to manage the trivia app and play the game. This trivia app was created for them to start holding trivia games and seeing who's the most knowledgeable of the bunch.
 
-Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a webpage to manage the trivia app and play the game, but their API experience is limited and still needs to be built out.
+The application allows you manage questions (display, add, delete and search) and also get them by category. It also allows you to play the quiz game, randomizing either all questions or within a specific category.
 
-That's where you come in! Help them finish the trivia app so they can start holding trivia and seeing who's the most knowledgeable of the bunch. The application must:
+The backend code adheres to the PEP 8 style guide and follows common best practices.
 
-1. Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer.
-2. Delete questions.
-3. Add questions and require that they include question and answer text.
-4. Search for questions based on a text query string.
-5. Play the quiz game, randomizing either all questions or within a specific category.
+## Getting Started
 
-Completing this trivia app will give you the ability to structure plan, implement, and test an API - skills essential for enabling your future applications to communicate with others.
-
-## Starting and Submitting the Project
-
-[Fork](https://help.github.com/en/articles/fork-a-repo) the project repository and [clone](https://help.github.com/en/articles/cloning-a-repository) your forked repository to your machine. Work on the project locally and make sure to push all your changes to the remote repository before submitting the link to your repository in the Classroom.
-
-## About the Stack
-
-We started the full stack application for you. It is designed with some key functional areas:
+This project makes use of **ReactJS** and **Node** for the frontend and **Flask**, **SQLAlchemy** and **PostgreSQL** for the backend. To be able to run this project locally, all aforementioned packages/libraries must be installed first.
 
 ### Backend
 
-The [backend](./backend/README.md) directory contains a partially completed Flask and SQLAlchemy server. You will work primarily in `__init__.py` to define your endpoints and can reference models.py for DB and SQLAlchemy setup. These are the files you'd want to edit in the backend:
+#### Installation guide
 
-1. `backend/flaskr/__init__.py`
-2. `backend/test_flaskr.py`
+- Install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+- Working within a virtual environment is recommended whenever using Python for projects. This keeps your dependencies for each project separate and organized. Instructions for setting up a virtual enviornment when you run this platform can be found in the [python docs.](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+- Once you have your virtual environment setup and running, install dependencies by navigating to the `/backend` directory and running:
+  `pip install -r requirements.txt`
+  This will install all of the required packages we selected within the `requirements.txt` file.
 
-> View the [Backend README](./backend/README.md) for more details.
+#### Setting up the database
+
+- Find steps to install and [get started with postgres here.](https://www.postgresqltutorial.com/install-postgresql/)
+- With Postgres running, populate your trivia database using the trivia.psql file provided. From postgres shell terminal run:
+  ```
+    dropdb trivia
+    createdb trivia
+    \c trivia
+    \i trivia.psql
+  ```
+
+#### Running the server
+
+- From within the `backend` directory after making sure you are working using your created virtual environment, run the server with the following command:
+  ```
+      py app.py
+  ```
+
+#### Testing
+
+To run the tests, run:
+
+```
+    dropdb trivia_test
+    createdb trivia_test
+    \c trivia_test
+    \i trivia.psql
+    python test_flaskr.py
+```
+
+This will populate the test database with data.
 
 ### Frontend
 
-The [frontend](./frontend/README.md) directory contains a complete React frontend to consume the data from the Flask server. If you have prior experience building a frontend application, you should feel free to edit the endpoints as you see fit for the backend you design. If you do not have prior experience building a frontend application, you should read through the frontend code before starting and make notes regarding:
+#### Installation guide
 
-1. What are the end points and HTTP methods the frontend is expecting to consume?
-2. How are the requests from the frontend formatted? Are they expecting certain parameters or payloads?
+- This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+- This project uses NPM to manage software dependencies. NPM Relies on the package.json file located in the `frontend` directory of this repository. After cloning, open your terminal and run:
+  `npm install`
 
-Pay special attention to what data the frontend is expecting from each API response to help guide how you format your API. The places where you may change the frontend behavior, and where you should be looking for the above information, are marked with `TODO`. These are the files you'd want to edit in the frontend:
+#### Run the frontend server
 
-1. `frontend/src/components/QuestionView.js`
-2. `frontend/src/components/FormView.js`
-3. `frontend/src/components/QuizView.js`
+- The frontend app was built using create-react-app. In order to run the app in development mode use `npm start`. You can change the script in the `package.json` file.
+- After starting tje server successfully, open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload automatically if you make edits.
 
-By making notes ahead of time, you will practice the core skill of being able to read and understand code and will have a simple plan to follow to build out the endpoints of your backend API.
+## API Reference
 
-> View the [Frontend README](./frontend/README.md) for more details.
+[View the README.md in the backend folder for the API documentation](./backend/README.md)
+
+## Author
+
+- Asha Barnabas
+
+## Acknowledgement
+
+- The entire Udacity team!
