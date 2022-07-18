@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 import unittest
 import json
@@ -5,6 +6,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app import app
 from models import setup_db, Question, Category
+
+load_dotenv()
+
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_TEST_NAME")
+database_path = "postgresql+psycopg2://{}:{}@{}/{}".format(
+    DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
+)
 
 
 class TriviaTestCase(unittest.TestCase):
@@ -14,13 +25,7 @@ class TriviaTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = app
         self.client = self.app.test_client
-        self.database_name = "trivia_test"
-        # credentials is username and password
-        self.credentials = "postgres:root"
-        self.host = "localhost:5432"
-        self.database_path = "postgresql://{}@{}/{}".format(
-            self.credentials, self.host, self.database_name
-        )
+        self.database_path = database_path
         setup_db(self.app, self.database_path)
 
         self.new_question = {
