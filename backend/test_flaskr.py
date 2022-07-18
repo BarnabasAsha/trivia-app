@@ -41,7 +41,7 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    ## Test cases
+    # Test cases
     def test_get_categories_success(self):
         res = self.client().get("/api/v1/categories")
         self.assertEqual(res.status_code, 200)
@@ -105,7 +105,10 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["error"], 404)
 
     def test_search_questions_success(self):
-        res = self.client().post("/api/v1/questions", json={"searchTerm": "movie"})
+        res = self.client().post(
+            "/api/v1/questions",
+            json={
+                "searchTerm": "movie"})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -121,7 +124,10 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data["totalQuestions"])
 
     def test_search_questions_not_found(self):
-        res = self.client().post("/api/v1/questions", json={"searchTerm": "xyzjklmnq"})
+        res = self.client().post(
+            "/api/v1/questions",
+            json={
+                "searchTerm": "xyzjklmnq"})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -139,7 +145,11 @@ class TriviaTestCase(unittest.TestCase):
     def test_get_question_for_quiz_success(self):
         res = self.client().post(
             "/api/v1/quizzes",
-            json={"previous_questions": [], "quiz_category": {"type": "", "id": 4}},
+            json={
+                "previous_questions": [],
+                "quiz_category": {
+                    "type": "",
+                    "id": 4}},
         )
         data = json.loads(res.data)
 

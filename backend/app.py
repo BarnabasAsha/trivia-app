@@ -28,7 +28,9 @@ def paginate(request, selection):
 
 @app.after_request
 def after_request(response):
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    response.headers.add(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization")
     response.headers.add(
         "Access-Control-Allow-Headers", "GET, POST, PATCH, DELETE, OPTIONS"
     )
@@ -40,18 +42,19 @@ def welcome():
     return jsonify({"success": True, "message": "Welcome to Trivia V1 API"})
 
 
-## fetch categories endpoint
+# fetch categories endpoint
 
 
 @app.route("/api/v1/categories")
 def get_categories():
     categories = Category.query.all()
-    formatted_categories = {category.id: category.type for category in categories}
+    formatted_categories = {
+        category.id: category.type for category in categories}
 
     return jsonify({"categories": formatted_categories})
 
 
-## fetch paginated questions endpoint
+# fetch paginated questions endpoint
 
 
 @app.route("/api/v1/questions")
@@ -62,18 +65,15 @@ def get_questions():
     if len(current_questions) == 0:
         abort(404)
 
-    return jsonify(
-        {
-            "success": True,
-            "questions": current_questions,
-            "categories": {category.id: category.type for category in categories},
-            "current_category": None,
-            "total_questions": len(Question.query.all()),
-        }
-    )
+    return jsonify({"success": True,
+                    "questions": current_questions,
+                    "categories": {category.id: category.type for category in categories},
+                    "current_category": None,
+                    "total_questions": len(Question.query.all()),
+                    })
 
 
-## Delete question endpoint using question id
+# Delete question endpoint using question id
 
 
 @app.route("/api/v1/questions/<int:question_id>", methods=["DELETE"])
@@ -91,11 +91,11 @@ def delete_question(question_id):
                 "deleted": question_id,
             }
         )
-    except:
+    except BaseException:
         abort(422)
 
 
-## Create a new Question endpoint
+# Create a new Question endpoint
 
 
 @app.route("/api/v1/questions", methods=["POST"])
@@ -139,7 +139,7 @@ def add_question():
         abort(400)
 
 
-## Get questions based on category
+# Get questions based on category
 @app.route("/api/v1/categories/<int:category_id>/questions")
 def get_questions_in_category(category_id):
 
@@ -155,7 +155,7 @@ def get_questions_in_category(category_id):
     )
 
 
-## quiz endpoint
+# quiz endpoint
 
 
 @app.route("/api/v1/quizzes", methods=["POST"])
@@ -186,25 +186,26 @@ def get_question_for_quiz():
 
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify({"success": False, "error": 404, "message": "Not found"}), 404
+    return jsonify({"success": False, "error": 404,
+                   "message": "Not found"}), 404
 
 
 @app.errorhandler(400)
 def bad_request(error):
-    return jsonify({"success": False, "error": 400, "message": "Bad Request"}), 400
+    return jsonify({"success": False, "error": 400,
+                   "message": "Bad Request"}), 400
 
 
 @app.errorhandler(405)
 def not_allowed(error):
-    return (
-        jsonify({"success": False, "error": 405, "message": "Method not allowed"}),
-        405,
-    )
+    return (jsonify({"success": False, "error": 405,
+                     "message": "Method not allowed"}), 405, )
 
 
 @app.errorhandler(422)
 def unprocessable(error):
-    return jsonify({"success": False, "error": 422, "message": "Unprocessable"}), 422
+    return jsonify({"success": False, "error": 422,
+                   "message": "Unprocessable"}), 422
 
 
 @app.errorhandler(500)
